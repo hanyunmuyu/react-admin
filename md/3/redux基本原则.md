@@ -3,7 +3,9 @@
 ## 单一数据源
 
 整个应用的 state 被储存在一棵 object tree 中，并且这个 object tree 只存在于唯一一个 store 中。
+
 ![store](../img/2.png)
+
 如图所示，无论你有多少个页面，还是有多少个组件，所有的状态都在一个单一的store中
 
 ## State 是只读的

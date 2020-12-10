@@ -39,10 +39,10 @@
     1.  [redux介绍](./md/3/redux介绍.md)
     2.  [redux的基本原则](./md/3/redux基本原则.md)
     3.  redux的核心概念
-        1. [state](./md/3/redux核心概念-state.md)
-        2. [action](./md/3/redux核心概念-action.md)
-        3. [reducer](./md/3/redux核心概念-reducer.md)
-        4. [store](./md/3/redux核心概念-store.md)
+        1. [redux核心概念-state](./md/3/redux核心概念-state.md)
+        2. [redux核心概念-action](./md/3/redux核心概念-action.md)
+        3. [redux核心概念-reducer](./md/3/redux核心概念-reducer.md)
+        4. [redux核心概念-store](./md/3/redux核心概念-store.md)
     4.  [在react中优雅的使用redux](./md/3/在react中优雅的使用redux.md)
     
 4.  react-router-dom入门
