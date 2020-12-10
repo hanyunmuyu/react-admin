@@ -43,11 +43,7 @@
         2. [action](./md/3/redux核心概念-action.md)
         3. [reducer](./md/3/redux核心概念-reducer.md)
         4. [store](./md/3/redux核心概念-store.md)
-    4.  如何在react中优雅的使用redux
-        1.  redux-thunk为redux和react牵线搭桥    
-        1.  connect链接props与state
-        2.  mapStateToProps将state转化为props
-        3.  mapDispatchToProps发射props给react
+    4.  [在react中优雅的使用redux](./md/3/在react中优雅的使用redux.md)
     
 4.  react-router-dom入门
     1.  BrowserRouter
