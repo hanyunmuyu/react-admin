@@ -25,9 +25,9 @@
 
 
 1. TS姿势入门
-    1.  基本数据类型
-    3.  接口
-    4.  类
+    1.  [基础数据类型](./md/1/基础数据类型.md)
+    3.  [接口](./md/1/接口.md)
+    4.  [类](./md/1/类.md)
 2.  用TS的姿势了解react
     1.  初始化react项目
     2.  使用接口声明props属性
@@ -36,18 +36,17 @@
     6.  组件
     5.  生命周期
 3.  用TS的姿势打开redux的大门
-    1.  redux介绍
-        1.  redux的使用场景
-        2.  redux的基本原则
-
-    2.  redux的核心概念
-        1. state
-        2. action
-        3. reducer
-        4. store
-    3.  redux-thunk为redux和react牵线搭桥    
+    1.  [redux介绍](./md/3/redux介绍.md)
+    2.  [redux的基本原则](./md/3/redux基本原则.md)
+    3.  redux的核心概念
+        1. [state](./md/3/redux核心概念-state.md)
+        2. [action](./md/3/redux核心概念-action.md)
+        3. [reducer](./md/3/redux核心概念-reducer.md)
+        4. [store](./md/3/redux核心概念-store.md)
+    4.  如何在react中优雅的使用redux
+        1.  redux-thunk为redux和react牵线搭桥    
         1.  connect链接props与state
-        2.  mapStateToProps将state转化为propos
+        2.  mapStateToProps将state转化为props
         3.  mapDispatchToProps发射props给react
     
 4.  react-router-dom入门
@@ -59,7 +58,7 @@
     6.  NavLink定义路由链接
     7.  withRouter高阶组件
     
-5.  RABC权限管理
+5.  RBAC权限管理
     1.  RBAC介绍
     2.  RBAC实现原理
     3.  权限如何划分
