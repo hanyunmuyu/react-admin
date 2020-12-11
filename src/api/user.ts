@@ -15,3 +15,8 @@ export const deleteUser = (userId: number) => {
         method: 'delete'
     })
 }
+export const getUserGlassesList=(userId:number)=>{
+    return request({
+        url:'/admin/user/glasses/list/'+userId
+    })
+}

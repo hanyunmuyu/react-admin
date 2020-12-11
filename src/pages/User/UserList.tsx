@@ -4,6 +4,7 @@ import {Button, DatePicker, Form, Input, Space, Table} from "antd";
 import DeleteUser from "./DeleteUser";
 import Permission from "../../components/Permission";
 import moment from "moment";
+import UserGlassesTrend from "./UserGlassesTrend";
 
 const {RangePicker} = DatePicker;
 
@@ -79,6 +80,7 @@ class UserList extends Component<any, IState> {
     render() {
         return (
             <>
+                <UserGlassesTrend userId={1}/>
                 <Form
                     initialValues={{
                         name: '',
