@@ -4,7 +4,7 @@ import {Button, DatePicker, Form, Input, Space, Table} from "antd";
 import DeleteUser from "./DeleteUser";
 import Permission from "../../components/Permission";
 import moment from "moment";
-import UserGlassesTrend from "./UserGlassesTrend";
+import {PlusOutlined} from '@ant-design/icons';
 
 const {RangePicker} = DatePicker;
 
@@ -80,7 +80,6 @@ class UserList extends Component<any, IState> {
     render() {
         return (
             <>
-                <UserGlassesTrend userId={1}/>
                 <Form
                     initialValues={{
                         name: '',
@@ -110,7 +109,11 @@ class UserList extends Component<any, IState> {
                         <RangePicker/>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType='submit'>搜索</Button>
+                        <Space>
+                            <Button type="primary" htmlType='submit'>搜索</Button>
+                            <Button type="primary" icon={<PlusOutlined/>}>新增用户 </Button>
+
+                        </Space>
                     </Form.Item>
                 </Form>
 
