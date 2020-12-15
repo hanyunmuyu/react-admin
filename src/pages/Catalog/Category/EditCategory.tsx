@@ -1,16 +1,18 @@
 import React, {Component, ReactNode} from "react";
 import {withRouter} from "react-router-dom";
 import {getAllCategory, getCategoryDetail, updateCategory} from "../../../api/category";
-import {Button, Form, Input, message, Switch, Tabs, TreeSelect} from "antd";
+import {Button, Form, Input, message, Switch, TreeSelect} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 
 const {TreeNode} = TreeSelect;
 
-const {TabPane} = Tabs;
 
 const layout = {
     labelCol: {span: 4},
     wrapperCol: {span: 16},
+};
+const tailLayout = {
+    wrapperCol: {offset: 8, span: 16},
 };
 
 interface ICategory {
@@ -106,61 +108,48 @@ class EditCategory extends Component<any, IState> {
                             }}
                             {...layout}
                         >
-                            <Tabs defaultActiveKey="1">
-                                <TabPane tab="通用信息" key="1">
-                                    <Form.Item
-                                        name={'category_name'}
-                                        label='分类名称'
-                                        rules={[
-                                            {
-                                                required: true,
-                                                type: "string",
-                                                message: '分类名称不可以为空'
-                                            }
-                                        ]}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-                                    <Form.Item
-                                        name={'description'}
-                                        label='描述'
-                                        rules={[
-                                            {
-                                                required: true,
-                                                type: "string",
-                                                message: '描述不可以为空'
-                                            }
-                                        ]}
-                                    >
-                                        <TextArea/>
-                                    </Form.Item>
-                                </TabPane>
-                                <TabPane tab="参数" key="2">
-                                    <Form.Item
-                                        name={'parent_id'}
-                                        label='父级分类'
-                                        valuePropName='value'
-                                    >
+                            <Form.Item
+                                name={'category_name'}
+                                label='分类名称'
+                                rules={[
+                                    {
+                                        required: true,
+                                        type: "string",
+                                        message: '分类名称不可以为空'
+                                    }
+                                ]}
+                            >
+                                <Input/>
+                            </Form.Item>
+                            <Form.Item
+                                name={'description'}
+                                label='描述'
+                            >
+                                <TextArea/>
+                            </Form.Item>
+                            <Form.Item
+                                name={'parent_id'}
+                                label='父级分类'
+                                valuePropName='value'
+                            >
 
-                                        <TreeSelect
-                                            showSearch
-                                            placeholder="选择分类"
-                                            allowClear
-                                            treeDefaultExpandAll
-                                        >
-                                            {this.generateTreeNode(this.state.categoryList)}
-                                        </TreeSelect>
-                                    </Form.Item>
-                                    <Form.Item
-                                        label='状态'
-                                        name={'status'}
-                                        valuePropName='checked'
-                                    >
-                                        <Switch checkedChildren="开启" unCheckedChildren="关闭" defaultChecked/>
-                                    </Form.Item>
-                                </TabPane>
-                            </Tabs>
-                            <Form.Item>
+                                <TreeSelect
+                                    showSearch
+                                    placeholder="选择分类"
+                                    allowClear
+                                    treeDefaultExpandAll
+                                >
+                                    {this.generateTreeNode(this.state.categoryList)}
+                                </TreeSelect>
+                            </Form.Item>
+                            <Form.Item
+                                label='状态'
+                                name={'status'}
+                                valuePropName='checked'
+                            >
+                                <Switch checkedChildren="开启" unCheckedChildren="关闭" defaultChecked/>
+                            </Form.Item>
+                            <Form.Item {...tailLayout}>
                                 <Button type='primary' htmlType='submit'>保存</Button>
                             </Form.Item>
                         </Form>
