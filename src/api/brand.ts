@@ -14,3 +14,16 @@ export const deleteBrand = (brandId: number) => {
         method: 'delete'
     })
 }
+export const getBrandDetail = (brandId: number) => {
+    return request({
+        url: '/admin/brand/' + brandId
+    })
+}
+export const updateBrand = (brandId: number, brand: any) => {
+
+    return request({
+        url: '/admin/brand/' + brandId,
+        data: brand,
+        method: 'put'
+    })
+}

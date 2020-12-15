@@ -21,6 +21,7 @@ import OrderDetail from "../pages/Order/OrderDetail";
 import EditOrder from "../pages/Order/EditOrder";
 import {IRoute} from "../store/states/PermissionState";
 import BrandList from "../pages/Catalog/Brand/BrandList"
+import EditBrand from "../pages/Catalog/Brand/EditBrand";
 
 export const leftRoute: IRoute[] = [
     {
@@ -159,6 +160,15 @@ export const leftRoute: IRoute[] = [
                 title: '品牌列表',
                 isMenu: 0,
                 component: <BrandList/>
+            },
+            {
+                id: '5-12',
+                icon: <DashboardTwoTone/>,
+                path: '/admin/brand/edit/:brandId',
+                title: '编辑品牌',
+                isMenu: 0,
+                isChildPage: true,
+                component: <EditBrand/>
             },
         ]
     },

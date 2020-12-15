@@ -2,6 +2,7 @@ import {Button, Image, message, Space, Table} from "antd";
 import React, {Component} from "react";
 import {deleteBrand, getBrandList} from "../../../api/brand";
 import DeleteBrand from "./DeleteBrand";
+import {Link} from "react-router-dom";
 
 interface IBrand {
     id: number
@@ -88,7 +89,9 @@ class BrandList extends Component<any, IState> {
                         title={'logo'}
                         render={(brand: IBrand) => (
                             <Space>
-                                <Button type='primary'>编辑</Button>
+                                <Link to={`/admin/brand/edit/${brand.id}`}>
+                                    <Button type='primary'>编辑</Button>
+                                </Link>
                                 <DeleteBrand brandId={brand.id} callback={this.deleteBrand}/>
                             </Space>
                         )}
