@@ -82,61 +82,51 @@ class AddCategory extends Component<any, IState> {
                     initialValues={{category_name: '', description: '', status: true, parent_id: undefined}}
                     {...layout}
                 >
-                    <Tabs defaultActiveKey="1">
-                        <TabPane tab="通用信息" key="1">
-                            <Form.Item
-                                name={'category_name'}
-                                label='分类名称'
-                                rules={[
-                                    {
-                                        required: true,
-                                        type: "string",
-                                        message: '分类名称不可以为空'
-                                    }
-                                ]}
-                            >
-                                <Input/>
-                            </Form.Item>
-                            <Form.Item
-                                name={'description'}
-                                label='描述'
-                                rules={[
-                                    {
-                                        required: true,
-                                        type: "string",
-                                        message: '描述不可以为空'
-                                    }
-                                ]}
-                            >
-                                <TextArea/>
-                            </Form.Item>
-                        </TabPane>
-                        <TabPane tab="参数" key="2">
-                            <Form.Item
-                                name={'parent_id'}
-                                label='父级分类'
-                                valuePropName='value'
-                            >
+                    <Form.Item
+                        name={'category_name'}
+                        label='分类名称'
+                        rules={[
+                            {
+                                required: true,
+                                type: "string",
+                                message: '分类名称不可以为空'
+                            }
+                        ]}
+                    >
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        name={'parent_id'}
+                        label='父级分类'
+                        valuePropName='value'
+                    >
 
-                                <TreeSelect
-                                    showSearch
-                                    dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
-                                    placeholder="选择分类"
-                                    allowClear
-                                    treeDefaultExpandAll
-                                >
-                                    {this.generateTreeNode(this.state.categoryList)}
-                                </TreeSelect>
-                            </Form.Item>
-                            <Form.Item
-                                label='状态'
-                                name={'status'}
-                                valuePropName='checked'
-                            >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭" defaultChecked/>
-                            </Form.Item>
-                        </TabPane>
-                    </Tabs>
+                        <TreeSelect
+                            showSearch
+                            dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                            placeholder="选择分类"
+                            allowClear
+                            treeDefaultExpandAll
+                        >
+                            {this.generateTreeNode(this.state.categoryList)}
+                        </TreeSelect>
+                    </Form.Item>
+
+
+                    <Form.Item
+                        name={'description'}
+                        label='描述'
+                    >
+                        <TextArea/>
+                    </Form.Item>
+
+                    <Form.Item
+                        label='状态'
+                        name={'status'}
+                        valuePropName='checked'
+                    >
+                        <Switch checkedChildren="开启" unCheckedChildren="关闭" defaultChecked/>
+                    </Form.Item>
                     <Form.Item>
                         <Button type='primary' htmlType='submit'>新增</Button>
                     </Form.Item>

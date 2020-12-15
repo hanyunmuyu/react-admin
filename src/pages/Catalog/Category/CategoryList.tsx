@@ -84,7 +84,6 @@ class CategoryList extends Component<any, ICategoryState> {
 
                 <Table
                     loading={this.state.loading}
-                    scroll={{x: 1500}} sticky
                     dataSource={this.state.categoryList}
                     pagination={{
                         position: ['bottomCenter'],
@@ -97,7 +96,8 @@ class CategoryList extends Component<any, ICategoryState> {
                     rowKey={'id'}
                 >
                     <Table.Column
-                        title='id'
+                        width={68}
+                        title={'ID'}
                         dataIndex={'id'}
                     />
                     <Table.Column
