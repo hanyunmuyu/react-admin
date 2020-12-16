@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Col, Form, InputNumber, message, Row, Select, Tabs} from "antd";
+import {Button, Col, Form, InputNumber, Row, Select, Tabs} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import {getOptionDetail, getOptionList} from "../../../api/option";
 
@@ -83,18 +83,6 @@ class AddGoods extends Component<any, IState> {
                                 {
                                     <Form.List
                                         name={['optionList', index]}
-                                        rules={[
-                                            {
-                                                validator: (rule, value) => {
-                                                    if (value === undefined || value.length === 0) {
-                                                        message.warning('至少添加一个选项');
-                                                        return Promise.reject('至少添加一个选项');
-                                                    } else {
-                                                        return Promise.resolve();
-                                                    }
-                                                }
-                                            }
-                                        ]}
                                     >
                                         {(fields, {add, remove}) => (
                                             <>
@@ -238,8 +226,17 @@ class AddGoods extends Component<any, IState> {
 
                                                 ))}
                                                 <Form.Item>
-                                                    <Button type="dashed" onClick={() => add()}
-                                                            icon={<PlusOutlined/>}>
+                                                    <Button
+                                                        type="dashed"
+                                                        onClick={() =>
+                                                            add(
+                                                                {
+                                                                    quantity: 0,
+                                                                    sub_stock: 0,
+                                                                    add_price: 0
+                                                                }
+                                                            )}
+                                                        icon={<PlusOutlined/>}>
                                                         添加选项
                                                     </Button>
                                                 </Form.Item>

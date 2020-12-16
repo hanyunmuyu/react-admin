@@ -76,9 +76,12 @@ class AddProduct extends Component<any, IState> {
     addProduct = (product: any) => {
         let optionList: any[] = [];
         product.optionList?.forEach((v: any) => {
+            if (v === undefined) {
+                return
+            }
             v.forEach((v1: any) => {
                 optionList.push(v1);
-            })
+            });
         })
         product.optionList = optionList;
         let imgList: string[] = []

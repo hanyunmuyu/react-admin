@@ -224,6 +224,7 @@ class OrderList extends Component<any, IState> {
                                             if (status.payStatus === order.payStatus) {
                                                 return <Tag key={i} color={status.color}>{status.status}</Tag>
                                             }
+                                            return null
                                         })
                                     }
                                 </>

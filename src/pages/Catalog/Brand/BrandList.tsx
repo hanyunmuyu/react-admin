@@ -1,6 +1,6 @@
-import {Button, Image, message, Space, Table} from "antd";
+import {Button, Image, Space, Table} from "antd";
 import React, {Component} from "react";
-import {deleteBrand, getBrandList} from "../../../api/brand";
+import {getBrandList} from "../../../api/brand";
 import DeleteBrand from "./DeleteBrand";
 import {Link} from "react-router-dom";
 
