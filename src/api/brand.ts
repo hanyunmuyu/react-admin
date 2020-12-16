@@ -27,3 +27,8 @@ export const updateBrand = (brandId: number, brand: any) => {
         method: 'put'
     })
 }
+export const getAllBrand = () => {
+    return request({
+        url: '/admin/brand/all'
+    })
+}

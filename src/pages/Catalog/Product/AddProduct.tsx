@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Form, Input, InputNumber, message, Tabs, TreeSelect, Upload} from "antd";
+import {Button, Form, Input, InputNumber, message, Select, Tabs, TreeSelect, Upload} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {PlusOutlined} from '@ant-design/icons';
 import {UploadFile} from "antd/es/upload/interface";
@@ -11,6 +11,7 @@ import {TreeNode} from "antd/es/tree-select";
 import AddGoods from "./AddGoods";
 import {FormInstance} from "antd/lib/form";
 import {withRouter} from "react-router-dom";
+import {getAllBrand} from "../../../api/brand";
 
 const layout = {
     labelCol: {span: 4},
@@ -40,24 +41,40 @@ interface ICategory {
     children?: ICategory[]
 }
 
+interface IBrand {
+    id: number
+    name: string
+}
+
 interface IState {
     fileList: UploadFile[]
     product?: IProduct
     categoryList: ICategory[]
+    brandList: IBrand[]
 }
 
 class AddProduct extends Component<any, IState> {
     state: IState = {
         fileList: [],
-        categoryList: []
+        categoryList: [],
+        brandList: []
     }
     formRef = React.createRef<FormInstance>();
 
     constructor(props: Readonly<any> | any) {
         super(props);
         this.getAllCategory()
+        this.getAllBrand()
     }
 
+    getAllBrand = () => {
+        getAllBrand().then(response => {
+            const {data} = response.data
+            this.setState({
+                brandList: data
+            })
+        })
+    }
     getAllCategory = () => {
         getAllCategory().then(response => {
             const {data} = response.data
@@ -159,6 +176,31 @@ class AddProduct extends Component<any, IState> {
                                 <Input/>
                             </Form.Item>
                             <Form.Item
+                                label={'品牌'}
+                                name={'brand_id'}
+                                valuePropName={'value'}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '选择品牌'
+                                    }
+                                ]}
+                            >
+                                <Select placeholder={'选择品牌'}>
+                                    {
+                                        this.state.brandList ?
+                                            this.state.brandList.map(brand => (
+                                                <Select.Option value={brand.id}
+                                                               key={brand.id}>{brand.name}
+                                                </Select.Option>)
+                                            )
+
+                                            :
+                                            null
+                                    }
+                                </Select>
+                            </Form.Item>
+                            <Form.Item
                                 name={'categoryIds'}
                                 label='分类'
                                 valuePropName='value'
@@ -210,8 +252,8 @@ class AddProduct extends Component<any, IState> {
                                         type: "number",
                                         required: true,
                                         validator: (rule, value) => {
-                                            if (value <= 0) {
-                                                return Promise.reject('产品价格必须大于0')
+                                            if (value < 0) {
+                                                return Promise.reject('产品价格应>=0')
                                             }
                                             return Promise.resolve()
                                         }

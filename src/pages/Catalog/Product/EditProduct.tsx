@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Form, Input, InputNumber, message, Tabs, TreeSelect, Upload} from "antd";
+import {Button, Form, Input, InputNumber, message, Select, Tabs, TreeSelect, Upload} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {PlusOutlined} from '@ant-design/icons';
 import {UploadChangeParam, UploadFile} from "antd/lib/upload/interface";
@@ -9,6 +9,7 @@ import {withRouter} from "react-router-dom";
 import {getAllCategory} from "../../../api/category";
 import {TreeNode} from "antd/es/tree-select";
 import EditGoods from "./EditGoods";
+import {getAllBrand} from "../../../api/brand";
 
 const layout = {
     labelCol: {span: 4},
@@ -21,8 +22,14 @@ const tailLayout = {
 const {TabPane} = Tabs;
 
 
+interface IBrand {
+    id: number
+    name: string
+}
+
 interface IProduct {
     productName: string
+    brandId: number
     description: string
     model: string
     price: number
@@ -53,6 +60,7 @@ interface IState {
     fileList: UploadFile[]
     product?: IProduct
     categoryList: ICategory[]
+    brandList: IBrand[]
     optionList: IProductOption[]
 }
 
@@ -60,7 +68,8 @@ class EditProduct extends Component<any, IState> {
     state: IState = {
         fileList: [],
         categoryList: [],
-        optionList: []
+        optionList: [],
+        brandList: []
     }
 
     constructor(props: Readonly<any> | any) {
@@ -68,8 +77,17 @@ class EditProduct extends Component<any, IState> {
         this.getProductOption()
         this.getAllCategory()
         this.getProductDetail()
+        this.getAllBrand()
     }
 
+    getAllBrand = () => {
+        getAllBrand().then(response => {
+            const {data} = response.data
+            this.setState({
+                brandList: data
+            })
+        })
+    }
     getProductDetail = () => {
         getProductDetail(this.props.match.params.productId).then(response => {
             const {data} = response.data
@@ -171,7 +189,8 @@ class EditProduct extends Component<any, IState> {
                                 ...this.state.product,
                                 product_name: this.state.product?.productName,
                                 categoryIds: this.state.product?.categoryIds,
-                                optionList: this.state.optionList
+                                optionList: this.state.optionList,
+                                brand_id: this.state.product.brandId
                             }}
                             onFinish={this.updateProduct}
                         >
@@ -200,6 +219,31 @@ class EditProduct extends Component<any, IState> {
                                         ]}
                                     >
                                         <Input/>
+                                    </Form.Item>
+                                    <Form.Item
+                                        label={'品牌'}
+                                        name={'brand_id'}
+                                        valuePropName={'value'}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: '选择品牌'
+                                            }
+                                        ]}
+                                    >
+                                        <Select placeholder={'选择品牌'}>
+                                            {
+                                                this.state.brandList ?
+                                                    this.state.brandList.map(brand => (
+                                                        <Select.Option value={brand.id}
+                                                                       key={brand.id}>{brand.name}
+                                                        </Select.Option>)
+                                                    )
+
+                                                    :
+                                                    null
+                                            }
+                                        </Select>
                                     </Form.Item>
                                     <Form.Item
                                         name={'categoryIds'}
@@ -253,8 +297,8 @@ class EditProduct extends Component<any, IState> {
                                                 type: "number",
                                                 required: true,
                                                 validator: (rule, value) => {
-                                                    if (value <= 0) {
-                                                        return Promise.reject('产品价格必须大于0')
+                                                    if (value < 0) {
+                                                        return Promise.reject('产品价格必须大于等于0')
                                                     }
                                                     return Promise.resolve()
                                                 }
