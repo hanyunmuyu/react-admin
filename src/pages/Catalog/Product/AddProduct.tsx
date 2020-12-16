@@ -3,7 +3,7 @@ import {Button, Form, Input, InputNumber, message, Tabs, TreeSelect, Upload} fro
 import TextArea from "antd/es/input/TextArea";
 import {PlusOutlined} from '@ant-design/icons';
 import {UploadFile} from "antd/es/upload/interface";
-import {UploadChangeParam} from "antd/lib/upload/interface";
+import {RcFile, UploadChangeParam} from "antd/lib/upload/interface";
 import {get} from "../../../utils/storage";
 import {addProduct} from "../../../api/product";
 import {getAllCategory} from "../../../api/category";
@@ -100,6 +100,18 @@ class AddProduct extends Component<any, IState> {
                 message.error(msg)
             }
         })
+    }
+    beforeUpload = (file: RcFile, FileList: RcFile[]): boolean => {
+        let imgSet = new Set();
+        imgSet.add('image/png')
+        imgSet.add('image/jpg')
+        imgSet.add('image/jpeg')
+        imgSet.add('image/gif')
+        if (!imgSet.has(file.type)) {
+            message.error(`文件类型不允许`);
+            return false
+        }
+        return true;
     }
 
     render() {
@@ -245,6 +257,7 @@ class AddProduct extends Component<any, IState> {
                             <Form.Item label=''>
                                 <Upload
                                     name={'file'}
+                                    beforeUpload={this.beforeUpload}
                                     headers={{'Authorization': 'Bearer ' + get('token')}}
                                     onChange={this.handleChange}
                                     action={process.env.REACT_APP_BASE_API + '/admin/upload'}
