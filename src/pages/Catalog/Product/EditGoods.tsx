@@ -240,8 +240,18 @@ class EditGoods extends Component<IProps, IState> {
 
                                                 ))}
                                                 <Form.Item>
-                                                    <Button type="dashed" onClick={() => add()}
-                                                            icon={<PlusOutlined/>}>
+                                                    <Button
+                                                        type="dashed"
+                                                        onClick={() =>
+                                                            add(
+                                                                {
+                                                                    quantity: 0,
+                                                                    sub_stock: 0,
+                                                                    add_price: 0
+                                                                }
+                                                            )
+                                                        }
+                                                        icon={<PlusOutlined/>}>
                                                         添加选项
                                                     </Button>
                                                 </Form.Item>
