@@ -86,7 +86,7 @@ class BrandList extends Component<any, IState> {
                         render={(brand: IBrand) => (<Image src={brand.logo}/>)}
                     />
                     <Table.Column
-                        title={'logo'}
+                        title={'管理'}
                         render={(brand: IBrand) => (
                             <Space>
                                 <Link to={`/admin/brand/edit/${brand.id}`}>

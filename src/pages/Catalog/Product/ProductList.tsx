@@ -7,8 +7,14 @@ import Col from "antd/es/grid/col";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Tag from "antd/es/tag";
 
+interface IBrand {
+    id: number
+    name: string
+}
+
 interface IProduct {
     id: number
+    brand?: IBrand
     productName: string
     model: string
     price: number
@@ -113,6 +119,12 @@ class ProductList extends Component<any, IProductListState> {
                         title={'产品名称'}
                         width={168}
                         dataIndex={'productName'}
+                    />
+                    <Table.Column
+                        title={'品牌'}
+                        render={(product: IProduct) => (<div>
+                            {product.brand?.name}
+                        </div>)}
                     />
                     <Table.Column
                         title={'图片'}
