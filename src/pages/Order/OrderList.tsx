@@ -1,10 +1,11 @@
 import React, {Component} from "react";
-import {Button, DatePicker, Form, Input, Select, Space, Table, Tag} from "antd";
+import {Button, DatePicker, Form, Input, Space, Table, Tag} from "antd";
 import {getOrderList} from "../../api/order";
 import moment from "moment";
 import DeleteOrder from "./DeleteOrder";
 import Permission from "../../components/Permission";
 import {Link} from "react-router-dom";
+import {PlusOutlined} from '@ant-design/icons';
 
 const {RangePicker} = DatePicker;
 
@@ -139,6 +140,9 @@ class OrderList extends Component<any, IState> {
         return (
             <>
                 <Form
+                    style={{
+                        marginBottom: '26px'
+                    }}
                     initialValues={{
                         orderNumber: '',
                         mobile: '',
@@ -160,21 +164,6 @@ class OrderList extends Component<any, IState> {
                         <Input placeholder='输入手机号查询' allowClear/>
                     </Form.Item>
                     <Form.Item
-                        name='pay_status'
-                        label='订单状态'
-                        valuePropName='value'
-                    >
-                        <Select placeholder='选择订单状态查询' allowClear>
-                            {
-                                this.payStatusList.map((payStatus, i) => (
-                                    <Select.Option value={payStatus.payStatus}
-                                                   key={i}>{payStatus.status}
-                                    </Select.Option>
-                                ))
-                            }
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
                         label='日期'
                         name='date'
                         valuePropName='value'
@@ -182,7 +171,10 @@ class OrderList extends Component<any, IState> {
                         <RangePicker/>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType='submit'>搜索</Button>
+                        <Space>
+                            <Button type="primary" htmlType='submit'>搜索</Button>
+                            <Button type="primary" href={'/admin/order/add'} icon={<PlusOutlined/>}>新增订单</Button>
+                        </Space>
                     </Form.Item>
                 </Form>
                 <Table

@@ -22,6 +22,7 @@ import EditOrder from "../pages/Order/EditOrder";
 import {IRoute} from "../store/states/PermissionState";
 import BrandList from "../pages/Catalog/Brand/BrandList"
 import EditBrand from "../pages/Catalog/Brand/EditBrand";
+import AddOrder from "../pages/Order/AddOrder";
 
 export const leftRoute: IRoute[] = [
     {
@@ -204,6 +205,15 @@ export const leftRoute: IRoute[] = [
                 isMenu: 0,
                 isChildPage: true,
                 component: <EditOrder/>
+            },
+            {
+                id: '6-4',
+                icon: <DashboardTwoTone/>,
+                path: '/admin/order/add',
+                title: '添加订单',
+                isMenu: 0,
+                isChildPage: true,
+                component: <AddOrder/>
             },
         ]
     },
