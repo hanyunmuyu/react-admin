@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Col, Form, InputNumber, message, Row, Select, Tabs} from "antd";
+import {Button, Col, Form, InputNumber, Row, Select, Tabs} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import {getOptionDetail, getOptionList} from "../../../api/option";
 
@@ -85,18 +85,6 @@ class EditGoods extends Component<IProps, IState> {
                                 {
                                     <Form.List
                                         name={['optionList', index]}
-                                        rules={[
-                                            {
-                                                validator: (rule, value) => {
-                                                    if (value === undefined || value.length === 0) {
-                                                        message.warning('至少添加一个选项');
-                                                        return Promise.reject('至少添加一个选项');
-                                                    } else {
-                                                        return Promise.resolve();
-                                                    }
-                                                }
-                                            }
-                                        ]}
                                     >
                                         {(fields, {add, remove}) => (
                                             <>

@@ -138,7 +138,6 @@ class EditProduct extends Component<any, IState> {
                 })
                 optionList.push(d)
             })
-            console.log(optionList)
             this.setState({
                 optionList: optionList
             })
@@ -160,9 +159,12 @@ class EditProduct extends Component<any, IState> {
 
         let optionList: any[] = [];
         product.optionList?.forEach((v: any) => {
+            if (v === undefined) {
+                return
+            }
             v.forEach((v1: any) => {
                 optionList.push(v1);
-            })
+            });
         })
         product.optionList = optionList;
 
