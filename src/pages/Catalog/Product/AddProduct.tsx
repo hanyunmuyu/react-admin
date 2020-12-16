@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Form, Input, message, Tabs, TreeSelect, Upload} from "antd";
+import {Button, Form, Input, InputNumber, message, Tabs, TreeSelect, Upload} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {PlusOutlined} from '@ant-design/icons';
 import {UploadFile} from "antd/es/upload/interface";
@@ -112,8 +112,8 @@ class AddProduct extends Component<any, IState> {
                         product_name: 'product',
                         description: 'description',
                         model: 'model',
-                        price: 100,
-                        quantity: 100,
+                        price: 0,
+                        quantity: 0,
                         categoryIds: [],
                         valueList: [],
                         optionList: []
@@ -134,21 +134,6 @@ class AddProduct extends Component<any, IState> {
                                 <Input/>
                             </Form.Item>
                             <Form.Item
-                                label='描述'
-                                name='description'
-                                rules={[
-                                    {
-                                        type: "string",
-                                        required: true,
-                                        message: '产品描述不可以为空'
-                                    }
-                                ]}
-                            >
-                                <TextArea/>
-                            </Form.Item>
-                        </TabPane>
-                        <TabPane tab="数据" key="2">
-                            <Form.Item
                                 label='产品型号'
                                 name='model'
                                 rules={[
@@ -161,70 +146,6 @@ class AddProduct extends Component<any, IState> {
                             >
                                 <Input/>
                             </Form.Item>
-                            <Form.Item
-                                label='产品价格'
-                                name='price'
-                                rules={[
-                                    {
-                                        type: "number",
-                                        required: true,
-                                        validator: (rule, value) => {
-                                            if (value <= 0) {
-                                                return Promise.reject('产品价格必须大于0')
-                                            }
-                                            return Promise.resolve()
-                                        }
-                                    }
-                                ]}
-                            >
-                                <Input/>
-                            </Form.Item>
-                            <Form.Item
-                                label='产品数量'
-                                name='quantity'
-                                rules={[
-                                    {
-                                        type: "number",
-                                        required: true,
-                                        min: 0,
-                                        validator: (rule, value) => {
-                                            if (value < 0) {
-                                                return Promise.reject('产品数量不可以小于0');
-                                            }
-                                            return Promise.resolve()
-                                        }
-                                    }
-                                ]}
-                            >
-                                <Input/>
-                            </Form.Item>
-                        </TabPane>
-                        <TabPane tab="图片" key="3">
-                            <Form.Item label=''>
-                                <Upload
-                                    name={'file'}
-                                    headers={{'Authorization': 'Bearer ' + get('token')}}
-                                    onChange={this.handleChange}
-                                    action={process.env.REACT_APP_BASE_API + '/admin/upload'}
-                                    listType="picture-card"
-                                    fileList={this.state.fileList}
-                                >
-                                    {
-                                        this.state.fileList.length >= 8 ?
-                                            null
-                                            :
-                                            <div>
-                                                <PlusOutlined/>
-                                                <div style={{marginTop: 8}}>Upload</div>
-                                            </div>
-                                    }
-
-
-                                </Upload>
-
-                            </Form.Item>
-                        </TabPane>
-                        <TabPane tab="相关信息" key="4">
                             <Form.Item
                                 name={'categoryIds'}
                                 label='分类'
@@ -269,8 +190,83 @@ class AddProduct extends Component<any, IState> {
                                     }
                                 </TreeSelect>
                             </Form.Item>
+                            <Form.Item
+                                label='产品价格'
+                                name='price'
+                                rules={[
+                                    {
+                                        type: "number",
+                                        required: true,
+                                        validator: (rule, value) => {
+                                            if (value <= 0) {
+                                                return Promise.reject('产品价格必须大于0')
+                                            }
+                                            return Promise.resolve()
+                                        }
+                                    }
+                                ]}
+                            >
+                                <InputNumber min={0} step={0.01}/>
+                            </Form.Item>
+                            <Form.Item
+                                label='产品数量'
+                                name='quantity'
+                                rules={[
+                                    {
+                                        type: "number",
+                                        required: true,
+                                        min: 0,
+                                        validator: (rule, value) => {
+                                            if (value < 0) {
+                                                return Promise.reject('产品数量不可以小于0');
+                                            }
+                                            return Promise.resolve()
+                                        }
+                                    }
+                                ]}
+                            >
+                                <InputNumber min={0} step={1}/>
+                            </Form.Item>
+                            <Form.Item
+                                label='描述'
+                                name='description'
+                                rules={[
+                                    {
+                                        type: "string",
+                                        required: true,
+                                        message: '产品描述不可以为空'
+                                    }
+                                ]}
+                            >
+                                <TextArea/>
+                            </Form.Item>
                         </TabPane>
-                        <TabPane tab='添加商品' key='5'>
+                        <TabPane tab="图片" key="2">
+                            <Form.Item label=''>
+                                <Upload
+                                    name={'file'}
+                                    headers={{'Authorization': 'Bearer ' + get('token')}}
+                                    onChange={this.handleChange}
+                                    action={process.env.REACT_APP_BASE_API + '/admin/upload'}
+                                    listType="picture-card"
+                                    fileList={this.state.fileList}
+                                >
+                                    {
+                                        this.state.fileList.length >= 8 ?
+                                            null
+                                            :
+                                            <div>
+                                                <PlusOutlined/>
+                                                <div style={{marginTop: 8}}>Upload</div>
+                                            </div>
+                                    }
+
+
+                                </Upload>
+
+                            </Form.Item>
+                        </TabPane>
+                        <TabPane tab='添加商品' key='3'>
                             <AddGoods/>
                         </TabPane>
                     </Tabs>
