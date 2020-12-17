@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Col, Form, Input, Row, Select, Spin} from "antd";
+import {Button, Form, Select} from "antd";
 import {getUserList} from "../../api/user";
 
 const layout = {

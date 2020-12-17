@@ -1,9 +1,8 @@
 import React, {Component} from "react";
-import {Button, Image, Input, Row, Space, Table} from "antd";
+import {Affix, Button, Form, Image, Input, Space, Table} from "antd";
 import {Link} from "react-router-dom";
 import {getProductList} from "../../../api/product";
 import DeleteProduct from "./DeleteProduct";
-import Col from "antd/es/grid/col";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Tag from "antd/es/tag";
 
@@ -29,6 +28,9 @@ interface IProductListState {
     perPage: number
     currentPage: number
     loading: boolean
+    selectedRowKeys: any[]
+    rowSelection: boolean
+    orderProductList: IProduct[]
 }
 
 class ProductList extends Component<any, IProductListState> {
@@ -37,7 +39,10 @@ class ProductList extends Component<any, IProductListState> {
         total: 0,
         perPage: 15,
         currentPage: 1,
-        loading: true
+        loading: true,
+        selectedRowKeys: [],
+        rowSelection: false,
+        orderProductList: []
     }
 
 
@@ -70,12 +75,32 @@ class ProductList extends Component<any, IProductListState> {
     search = (keyword: any) => {
         this.getProductList(1, keyword)
     }
+    onSelectChange = (selectedRowKeys: any) => {
+        let idSet = new Set(selectedRowKeys)
+        let idFilterSet = new Set(this.state.orderProductList.map(product => product.id))
+        this.setState({
+            selectedRowKeys: selectedRowKeys,
+            orderProductList: [...this.state.orderProductList, ...this.state.productList.filter(product => !idFilterSet.has(product.id))].filter(product => idSet.has(product.id)).sort((a, b) => b.id - a.id)
+        })
+        console.log(idSet)
+    }
+    showRowSelection = () => {
+        this.setState({
+            rowSelection: !this.state.rowSelection
+        })
+    }
 
     render() {
         return (
             <>
-                <Row gutter={8}>
-                    <Col xs={12} sm={6} md={8} lg={8} xl={6}>
+                <Form
+                    onFinish={this.search}
+                    layout={"inline"}
+                    style={{
+                        marginBottom: '26px'
+                    }}
+                >
+                    <Form.Item>
                         <Input.Search
                             addonBefore='搜索：'
                             placeholder='输入关键词查询'
@@ -83,17 +108,34 @@ class ProductList extends Component<any, IProductListState> {
                             onSearch={this.search}
                             enterButton={<SearchOutlined/>}
                         />
-                    </Col>
-                    <Col xs={12} sm={6} md={8} lg={8} xl={6}>
-                        <Link to='/admin/catalog/product/add'>
-                            <Button type='primary' icon={<PlusOutlined/>}>
+                    </Form.Item>
+                    <Form.Item>
+                        <Space>
+                            <Button href={'/admin/catalog/product/add'} type='primary' icon={<PlusOutlined/>}>
                                 新增产品
                             </Button>
-                        </Link>
-                    </Col>
-                </Row>
-
+                            <Button type="primary" onClick={this.showRowSelection} icon={<PlusOutlined/>}>选择产品</Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
+                <Affix offsetTop={88}>
+                    {
+                        this.state.rowSelection ?
+                            <ul>
+                                {this.state.orderProductList.map(product => (
+                                    <li key={product.id}>{product.productName}</li>))}
+                            </ul>
+                            :
+                            null
+                    }
+                </Affix>
                 <Table
+                    rowSelection={this.state.rowSelection ? {
+                        hideSelectAll: true,
+                        preserveSelectedRowKeys: true,
+                        selectedRowKeys: this.state.selectedRowKeys,
+                        onChange: this.onSelectChange,
+                    } : undefined}
                     scroll={{x: 1500}}
                     rowKey='id'
                     loading={this.state.loading}
