@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Affix, Button, Form, Image, Input, Space, Table} from "antd";
+import {Button, Form, Image, Input, Space, Table} from "antd";
 import {Link} from "react-router-dom";
 import {getProductList} from "../../../api/product";
 import DeleteProduct from "./DeleteProduct";
@@ -89,10 +89,52 @@ class ProductList extends Component<any, IProductListState> {
             rowSelection: !this.state.rowSelection
         })
     }
+    deleteOrderProduct = (productId: number) => {
+        this.setState({
+            orderProductList: this.state.orderProductList.filter(product => product.id !== productId),
+            selectedRowKeys: this.state.selectedRowKeys.filter(key => key !== productId),
+        })
+    }
 
     render() {
         return (
             <>
+
+                {
+                    this.state.rowSelection ?
+                        <div>
+
+                            <Table
+                                pagination={{disabled: true, hideOnSinglePage: true, defaultPageSize: 9999}}
+                                dataSource={this.state.orderProductList}
+                                rowKey={'id'}
+                                footer={() => this.state.orderProductList.length > 0 ?
+                                    <Button style={{float: "right"}} type='primary'>选好了</Button> : null}
+                            >
+                                <Table.Column
+                                    dataIndex={'id'}
+                                    title={'id'}/>
+                                <Table.Column
+                                    fixed='left'
+                                    title={'产品名称'}
+                                    width={168}
+                                    dataIndex={'productName'}
+                                />
+                                <Table.Column
+                                    title={'价格'}
+                                    dataIndex={'price'}
+                                />
+                                <Table.Column
+                                    title={'管理'}
+                                    render={(product) => (<Button type='primary' onClick={() => {
+                                        this.deleteOrderProduct(product.id)
+                                    }} danger>删除</Button>)}/>
+                            </Table>
+                        </div>
+                        :
+                        null
+                }
+
                 <Form
                     onFinish={this.search}
                     layout={"inline"}
@@ -118,17 +160,7 @@ class ProductList extends Component<any, IProductListState> {
                         </Space>
                     </Form.Item>
                 </Form>
-                <Affix offsetTop={88}>
-                    {
-                        this.state.rowSelection ?
-                            <ul>
-                                {this.state.orderProductList.map(product => (
-                                    <li key={product.id}>{product.productName}</li>))}
-                            </ul>
-                            :
-                            null
-                    }
-                </Affix>
+
                 <Table
                     rowSelection={this.state.rowSelection ? {
                         hideSelectAll: true,
