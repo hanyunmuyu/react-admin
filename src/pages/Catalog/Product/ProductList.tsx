@@ -181,6 +181,14 @@ class ProductList extends Component<any, IProductListState> {
                         showSizeChanger: false
                     }}
                     dataSource={this.state.productList}
+                    expandable={{
+                        expandedRowRender: (product: IProduct) => <p style={{margin: 0}}>{product.id}</p>,
+                        rowExpandable: (product: IProduct) => this.state.rowSelection,
+                        onExpand: (expanded: boolean, product: IProduct) => {
+                            console.log(expanded)
+                            console.log(product)
+                        }
+                    }}
                 >
                     <Table.Column
                         fixed='left'
