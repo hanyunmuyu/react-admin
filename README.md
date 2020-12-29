@@ -32,7 +32,7 @@
 2.  用TS的姿势了解react
     1.  [初始化react项目](./md/2/项目初始化.md)
     2.  [组件的属性-props](./md/2/组件的属性-props.md)
-    3.  使用接口声明state状态
+    3.  [组件的状态-state](./md/2/组件的状态-state.md)
     4.  jsx模板语法
     6.  组件
     5.  生命周期
