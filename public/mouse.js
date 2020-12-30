@@ -32,8 +32,8 @@ const initMenu = () => {
     // menu.append(new MenuItem({ role: 'pasteandmatchstyle' }));
     menu.append(new MenuItem({label: '删除', role: 'delete'}));
     menu.append(new MenuItem({label: '全选', role: 'selectall'}));
-    // const menu2 = new Menu();
-    // menu2.append(new MenuItem({label: '复制', role: 'copy'}));
+    const menu2 = new Menu();
+    menu2.append(new MenuItem({label: '复制', role: 'copy'}));
     // //点击dome
     // menu2.append(new MenuItem({
     //     label: 'show', click() {

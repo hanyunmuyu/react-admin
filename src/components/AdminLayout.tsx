@@ -15,6 +15,8 @@ const {Sider, Content, Footer} = Layout;
 interface IAdminLayoutState {
     collapsed: boolean
     auth: boolean
+    width?: number
+    height?: number
 }
 
 interface IAdminLayoutProps extends RouteComponentProps {
@@ -33,6 +35,19 @@ class AdminLayout extends Component<IAdminLayoutProps, IAdminLayoutState> {
             collapsed: !this.state.collapsed,
         });
     };
+
+    componentDidMount() {
+        window.addEventListener('resize', this.resize)
+    }
+
+    resize = () => {
+        let height = window.document.body.clientHeight
+        let width = window.document.body.clientWidth
+        this.setState({
+            width: width > 1024 ? width : 1024,
+            height: height > 768 ? height : 768
+        })
+    }
 
     static getDerivedStateFromProps(nextProps: Readonly<IAdminLayoutProps>, nextState: Readonly<IAdminLayoutState>) {
         if (nextProps.loading) {
@@ -73,7 +88,10 @@ class AdminLayout extends Component<IAdminLayoutProps, IAdminLayoutState> {
         }
         return (
             <>
-                <Layout>
+                <Layout style={{
+                    width: this.state.width + 'px',
+                    height: this.state.height + 'px'
+                }}>
                     <TopHeader/>
                     <Layout>
                         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
