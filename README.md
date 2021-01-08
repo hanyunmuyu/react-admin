@@ -31,13 +31,13 @@
     5.  [泛型](./md/1/泛型.md)
 2.  用TS的姿势了解react
     1.  [初始化react项目](./md/2/项目初始化.md)
-    2.  [组件的属性-props](./md/2/组件的属性-props.md)
-    3.  [组件的状态-state](./md/2/组件的状态-state.md)
-    4.  [tsx语法](./md/2/tsx语法.md)
-    4.  [react中的css](./md/2/react中的css.md)
-    6.  组件
-    5.  生命周期
-    6.  [事件绑定](./md/2/事件绑定.md)
+    2.  [组件](./md/2/组件.md)
+    3.  [组件的属性-props](./md/2/组件的属性-props.md)
+    4.  [组件的状态-state](./md/2/组件的状态-state.md)
+    5.  [tsx语法](./md/2/tsx语法.md)
+    6.  [react中的css](./md/2/react中的css.md)
+    5.  [事件绑定](./md/2/事件绑定.md)
+    6.  生命周期
 3.  用TS的姿势打开redux的大门
     1.  [redux介绍](./md/3/redux介绍.md)
     2.  [redux的基本原则](./md/3/redux基本原则.md)
