@@ -51,7 +51,8 @@
 4.  react-router-dom入门
     1.  [初识react-router-dom](./md/4/初识react-router-dom.md)
     2.  [路由模式](./md/4/路由模式.md)
-    3.  Route定义路由
+    3.  [路由匹配规则](./md/4/路由匹配规则.md)
+    4.  [路由嵌套](./md/4/路由嵌套.md)
     4.  Switch路由切换
     5.  matchPath判断路由是否匹配
     6.  NavLink定义路由链接
