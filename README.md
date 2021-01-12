@@ -37,7 +37,7 @@
     5.  [tsx语法](./md/2/tsx语法.md)
     6.  [react中的css](./md/2/react中的css.md)
     5.  [事件绑定](./md/2/事件绑定.md)
-    6.  生命周期
+    6.  [生命周期](./md/2/生命周期.md)
 3.  用TS的姿势打开redux的大门
     1.  [redux介绍](./md/3/redux介绍.md)
     2.  [redux的基本原则](./md/3/redux基本原则.md)
