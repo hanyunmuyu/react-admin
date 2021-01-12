@@ -49,8 +49,8 @@
     4.  [在react中优雅的使用redux](./md/3/在react中优雅的使用redux.md)
     
 4.  react-router-dom入门
-    1.  BrowserRouter
-    2.  Redirect路由跳转
+    1.  [初识react-router-dom](./md/4/初识react-router-dom.md)
+    2.  [路由模式](./md/4/路由模式.md)
     3.  Route定义路由
     4.  Switch路由切换
     5.  matchPath判断路由是否匹配
