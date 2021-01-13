@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Button, Space, Table} from 'antd'
 import {getAdminList} from '../../api/admin'
 import Permission from '../../components/Permission'
-import {getRoleList} from '../../api/role'
+import {getAllRole} from '../../api/role'
 import DeleteAdmin from "./DeleteAdmin";
 import {IAdmin} from "../../store/states/AdminState";
 import {IRole} from "../interfaces/IRole";
@@ -37,8 +37,8 @@ class AdminList extends Component<any, IAdminListState> {
         this.getAdminList()
     }
 
-    getRoleList() {
-        getRoleList().then(response => {
+    getAllRole() {
+        getAllRole().then(response => {
             const {data} = response.data
             this.setState({
                 roleList: data
@@ -52,7 +52,7 @@ class AdminList extends Component<any, IAdminListState> {
         })
     }
     editAdmin = (admin: IAdmin) => {
-        this.getRoleList()
+        this.getAllRole()
         this.setState({
             admin: admin
         })

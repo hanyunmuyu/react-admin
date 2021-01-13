@@ -3,7 +3,7 @@ import {Button, Form, Input, message, Modal, Select, Space} from "antd";
 import {IAdmin} from "../../store/states/AdminState";
 import {updateAdmin} from "../../api/admin";
 import {IRole} from "../interfaces/IRole";
-import {getRoleList} from "../../api/role";
+import {getAllRole, getRoleList} from "../../api/role";
 
 const layout = {
     labelCol: {span: 4},
@@ -27,8 +27,8 @@ class EditAdmin extends Component<IEditAdminProps, IEditAdminState> {
         roleList: []
     }
 
-    getRoleList() {
-        getRoleList().then(response => {
+    getAllRole() {
+        getAllRole().then(response => {
             const {data} = response.data
             this.setState({
                 roleList: data
@@ -37,7 +37,7 @@ class EditAdmin extends Component<IEditAdminProps, IEditAdminState> {
     }
 
     editAdmin = () => {
-        this.getRoleList()
+        this.getAllRole()
     }
     handleCancel = () => {
         this.props.callback(this.props.admin)
@@ -62,7 +62,7 @@ class EditAdmin extends Component<IEditAdminProps, IEditAdminState> {
     }
 
     componentDidMount() {
-        this.getRoleList()
+        this.getAllRole()
     }
 
     render() {

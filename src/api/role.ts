@@ -7,6 +7,13 @@ export const getRoleList = (page: number = 1) => {
         method: 'GET'
     })
 }
+export const getAllRole = () => {
+    return request({
+        url: '/admin/role/all',
+        method: 'GET'
+    })
+}
+
 export const deleteRole = (roleId: number) => {
     return request({
         url: '/admin/role/delete/' + roleId,
