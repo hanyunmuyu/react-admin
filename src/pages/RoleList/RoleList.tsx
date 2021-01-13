@@ -26,7 +26,6 @@ class RoleList extends Component<any, IState> {
     }
 
     onChange = (page: number) => {
-        console.log(page)
         this.getRoleList(page)
     }
 

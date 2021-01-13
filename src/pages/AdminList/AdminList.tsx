@@ -12,11 +12,12 @@ import EditAdmin from './EditAdmin'
 interface IAdminListState {
     adminList: IAdmin[]
     roleList: IRole[]
+    pageSize: number
     admin?: IAdmin
     page: number
     perPage: number
-    total: number
     visible: boolean
+    totalCount: number
 }
 
 
@@ -26,7 +27,8 @@ class AdminList extends Component<any, IAdminListState> {
         roleList: [],
         page: 1,
         perPage: 15,
-        total: 0,
+        totalCount: 0,
+        pageSize: 0,
         visible: false
     }
 
@@ -60,12 +62,12 @@ class AdminList extends Component<any, IAdminListState> {
     }
     getAdminList = (page: number = 1) => {
         getAdminList(page).then(response => {
-            const {data: {currentPage, data, total, perPage}} = response.data
+            const {data: {currentPage, dataList, totalCount, limit}} = response.data
             this.setState({
                 page: currentPage,
-                adminList: data,
-                total: total,
-                perPage: perPage
+                adminList: dataList,
+                totalCount: totalCount,
+                pageSize: limit
             })
         })
     }
@@ -97,7 +99,7 @@ class AdminList extends Component<any, IAdminListState> {
                 <Table
                     pagination={{
                         position: ['bottomCenter'],
-                        total: this.state.total,
+                        total: this.state.totalCount,
                         hideOnSinglePage: true,
                         defaultCurrent: this.state.page,
                         defaultPageSize: this.state.perPage,
