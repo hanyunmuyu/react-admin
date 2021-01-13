@@ -8,7 +8,7 @@ export const getRoleList = () => {
 }
 export const deleteRole = (roleId: number) => {
     return request({
-        url: '/admin/role/' + roleId,
+        url: '/admin/role/delete/' + roleId,
         method: 'delete'
     })
 }
