@@ -7,7 +7,7 @@ import {doLogin, syncAdminInfo} from '../store/actions/AdminAction';
 import {RouteComponentProps, withRouter} from "react-router";
 import {getPermissionList} from '../store/actions/PermissionAction';
 import {set} from "../utils/storage";
-import '../static/css/login.css'
+import '../static/css/login/login.css'
 
 const layout = {
     labelCol: {span: 4},
@@ -20,6 +20,9 @@ const tailLayout = {
 interface IState {
     name: string
     password: string
+
+    width: number
+    height: number
 }
 
 interface IProps extends RouteComponentProps {
@@ -29,9 +32,27 @@ interface IProps extends RouteComponentProps {
 }
 
 class Login extends Component<IProps, IState> {
-    state: IState = {
-        name: '',
-        password: ''
+    constructor(props: IProps, context: any) {
+        super(props, context);
+        let height = window.document.body.clientHeight
+        let width = window.document.body.clientWidth
+        this.state = {
+            width: width,
+            height: height,
+            name: '',
+            password: ''
+        }
+        window.addEventListener('resize', this.handleResize.bind(this)) //监听窗口大小改变
+
+    }
+
+    handleResize = () => {
+        let height = window.document.body.clientHeight
+        let width = window.document.body.clientWidth
+        this.setState({
+            width: width,
+            height: height
+        })
     }
     onFinish = (values: IState) => {
         login(values).then(response => {
@@ -52,8 +73,16 @@ class Login extends Component<IProps, IState> {
 
     render() {
         return (
-            <div className='login-form'>
+            <div
+                className='login'
+                style={{
+                    width: this.state.width + 'px',
+                    height: this.state.height + 'px'
+                }}
+            >
                 <Form
+                    id='login-form'
+                    className='login-form'
                     ref={null}
                     initialValues={this.state}
                     onFinish={this.onFinish}

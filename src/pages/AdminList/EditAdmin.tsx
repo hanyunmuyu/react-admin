@@ -3,7 +3,7 @@ import {Button, Form, Input, message, Modal, Select, Space} from "antd";
 import {IAdmin} from "../../store/states/AdminState";
 import {updateAdmin} from "../../api/admin";
 import {IRole} from "../interfaces/IRole";
-import {getAllRole, getRoleList} from "../../api/role";
+import {getAllRole} from "../../api/role";
 
 const layout = {
     labelCol: {span: 4},
