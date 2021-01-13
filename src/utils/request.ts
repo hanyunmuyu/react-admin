@@ -13,7 +13,7 @@ service.interceptors.request.use(
     config => {
         NProgress.start();
         let token = get('token')
-        config.headers['Authorization'] = 'Bearer ' + token;
+        config.headers['Authorization'] = token;
         return config
     },
     error => {

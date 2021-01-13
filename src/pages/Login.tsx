@@ -35,8 +35,8 @@ class Login extends Component<IProps, IState> {
     }
     onFinish = (values: IState) => {
         login(values).then(response => {
-            const {accessToken, admin} = response.data.data
-            set('token', accessToken)
+            const {token, admin} = response.data.data
+            set('token', token)
             return admin
         }).then(admin => {
             this.props.login(admin)
