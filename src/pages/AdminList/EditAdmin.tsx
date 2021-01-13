@@ -55,7 +55,7 @@ class EditAdmin extends Component<IEditAdminProps, IEditAdminState> {
                     this.props.callback({...this.props.admin, ...admin})
                 } else {
                     message.error(msg)
-                    this.props.callback(this.props.admin)
+                    // this.props.callback(this.props.admin)
                 }
             })
         }

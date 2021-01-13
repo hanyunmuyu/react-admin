@@ -14,8 +14,8 @@ export const deleteAdmin = (adminId: number) => {
 }
 export const updateAdmin = (adminId: number, data: any) => {
     return request({
-        url: '/admin/admin/' + adminId,
-        method: 'post',
+        url: '/admin/admin/update/' + adminId,
+        method: 'put',
         data: data
     })
 }
