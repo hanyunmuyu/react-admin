@@ -31,9 +31,9 @@ class RoleList extends Component<any, IState> {
 
     getRoleList(page: number = 1) {
         getRoleList().then(response => {
-            const {data} = response.data
+            const {dataList} = response.data.data
             this.setState({
-                roleList: data,
+                roleList: dataList,
             })
         })
     }
