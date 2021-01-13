@@ -10,15 +10,15 @@ import RoleAdd from "./RoleAdd";
 
 interface IState {
     page: number
-    perPage: number
-    total: number
+    pageSize: number
+    totalCount: number
     role?: IRole
     roleList: IRole[]
     showP: boolean
 }
 
 class RoleList extends Component<any, IState> {
-    state: IState = {page: 1, roleList: [], total: 0, perPage: 15, showP: false}
+    state: IState = {page: 1, roleList: [], totalCount: 0, pageSize: 15, showP: false}
 
     constructor(props: any) {
         super(props);
@@ -26,15 +26,20 @@ class RoleList extends Component<any, IState> {
     }
 
     onChange = (page: number) => {
+        console.log(page)
         this.getRoleList(page)
     }
 
     getRoleList(page: number = 1) {
-        getRoleList().then(response => {
-            const {dataList} = response.data.data
+        getRoleList(page).then(response => {
+            const {data: {currentPage, dataList, totalCount, limit}} = response.data
             this.setState({
+                page: currentPage,
                 roleList: dataList,
+                totalCount: totalCount,
+                pageSize: limit
             })
+
         })
     }
 
@@ -77,7 +82,12 @@ class RoleList extends Component<any, IState> {
                 <Table
                     pagination={{
                         position: ['bottomCenter'],
-                        hideOnSinglePage: true
+                        total: this.state.totalCount,
+                        hideOnSinglePage: true,
+                        defaultCurrent: this.state.page,
+                        defaultPageSize: this.state.pageSize,
+                        showSizeChanger: false,
+                        onChange: this.onChange
                     }}
                     rowKey={'id'}
                     dataSource={this.state.roleList}
