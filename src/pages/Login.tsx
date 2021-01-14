@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Form, Input} from 'antd'
+import {Button, Form, Input, message} from 'antd'
 import {login} from '../api';
 import {connect} from 'react-redux'
 import {Dispatch} from 'redux'
@@ -56,9 +56,15 @@ class Login extends Component<IProps, IState> {
     }
     onFinish = (values: IState) => {
         login(values).then(response => {
-            const {token, admin} = response.data.data
-            set('token', token)
-            return admin
+            const {code, msg} = response.data
+            if (code === 0) {
+                const {token, admin} = response.data.data;
+                set('token', token)
+                return admin
+            } else {
+                message.error(msg)
+                return Promise.reject(msg)
+            }
         }).then(admin => {
             this.props.login(admin)
             this.props.getAdminInfo()
