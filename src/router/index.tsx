@@ -7,6 +7,7 @@ import Page403 from "../pages/Page403"
 import RoleList from '../pages/RoleList/RoleList'
 import {DashboardOutlined, DashboardTwoTone, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import {IRoute} from "../store/states/PermissionState";
+import UserList from "../pages/User/UserList"
 
 export const leftRoute: IRoute[] = [
     {
@@ -51,27 +52,27 @@ export const leftRoute: IRoute[] = [
                 component: <RoleList/>
             }
         ]
+    },
+    {
+        id: '5-0',
+        icon: <TeamOutlined/>,
+        path: '/admin/user',
+        title: '用户管理',
+        isMenu: 1,
+        routes: [
+            {
+                id: '5-1',
+                icon: <DashboardTwoTone/>,
+                path: '/admin/user/list',
+                title: '用户列表',
+                isMenu: 0,
+                component: <UserList/>
+            }
+        ]
     }
 ]
 export const topRoute: IRoute[] = [
-    {
-        id: '5-0',
-        icon: <DashboardOutlined/>,
-        exact: true,
-        path: '/admin/top1',
-        title: 'top1',
-        isMenu: 0,
-        component: <>top1</>
-    },
-    {
-        id: '5-1',
-        icon: <DashboardOutlined/>,
-        exact: true,
-        path: '/admin/top2',
-        title: 'top2',
-        isMenu: 0,
-        component: <>top2</>
-    }
+
 ]
 
 export const authRoutes: IRoute[] = [
