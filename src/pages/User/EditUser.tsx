@@ -1,5 +1,6 @@
-import React, {Component} from "react";
+import React, {Component, RefObject} from "react";
 import {Button, Form, Input, Modal, Space} from "antd";
+import {FormInstance} from "antd/lib/form";
 
 const tailLayout = {
     wrapperCol: {offset: 8, span: 16},
@@ -19,63 +20,65 @@ interface IProps {
     callback: (visible: boolean, user?: IUser) => void
 }
 
-interface IState {
-    user?: IUser
-}
+class EditUser extends Component<IProps, any> {
+    formRef: RefObject<FormInstance>
 
-class EditUser extends Component<IProps, IState> {
+    constructor(props: IProps, context: any) {
+        super(props, context);
+        this.formRef = React.createRef<FormInstance>();
+    }
+
     handleCancel = () => {
         this.props.callback(false)
     }
     saveUser = (user: IUser) => {
-        user.id = this.props.user?.id as number
-        this.props.callback(false, user)
+        this.props.callback(false, {...this.props.user, ...user})
     }
 
     render() {
+        this.formRef.current?.setFieldsValue({...this.props.user})
         return (
             <>
                 <Modal
-                    title="编辑管理员信息"
+                    title="编辑用户信息"
                     visible={this.props.visible}
                     onCancel={this.handleCancel}
                     cancelText='取消'
                     okText='确认'
                     footer={null}
                 >
-                    {
-                        this.props.user ?
-                            <Form
-                                onFinish={this.saveUser}
-                                initialValues={{
-                                    ...this.props.user
-                                }}
-                            >
-                                <Form.Item
-                                    label='姓名'
-                                    name='name'
-                                    rules={[{required: true, message: '用户姓名不可以为空'}]}
-                                >
-                                    <Input/>
-                                </Form.Item>
-                                <Form.Item
-                                    label='手机号'
-                                    name='mobile'
-                                    rules={[{required: true, message: '手机号不可以为空'}]}
-                                >
-                                    <Input/>
-                                </Form.Item>
-                                <Form.Item {...tailLayout}>
-                                    <Space>
-                                        <Button type="primary" htmlType="submit">
-                                            提交
-                                        </Button>
-                                    </Space>
-                                </Form.Item>
-                            </Form>
-                            :
-                            null
-                    }
+
+                    <Form
+                        ref={this.formRef}
+                        onFinish={this.saveUser}
+                        initialValues={{
+                            ...this.props.user
+                        }}
+                    >
+                        <Form.Item
+                            shouldUpdate={(prevValues, curValues) => prevValues.additional !== curValues.additional}
+                            label='姓名'
+                            name='name'
+                            rules={[{required: true, message: '用户姓名不可以为空'}]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item
+                            shouldUpdate={(prevValues, curValues) => prevValues.additional !== curValues.additional}
+                            label='手机号'
+                            name='mobile'
+                            rules={[{required: true, message: '手机号不可以为空'}]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item {...tailLayout}>
+                            <Space>
+                                <Button type="primary" htmlType="submit">
+                                    提交
+                                </Button>
+                            </Space>
+                        </Form.Item>
+                    </Form>
                 </Modal>
             </>
         )
