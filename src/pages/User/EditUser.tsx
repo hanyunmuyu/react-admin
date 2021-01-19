@@ -1,6 +1,7 @@
 import React, {Component, RefObject} from "react";
-import {Button, Form, Input, Modal, Space} from "antd";
+import {Button, Form, Input, message, Modal, Space} from "antd";
 import {FormInstance} from "antd/lib/form";
+import {updateUser} from "../../api/user";
 
 const tailLayout = {
     wrapperCol: {offset: 8, span: 16},
@@ -32,7 +33,16 @@ class EditUser extends Component<IProps, any> {
         this.props.callback(false)
     }
     saveUser = (user: IUser) => {
-        this.props.callback(false, {...this.props.user, ...user})
+        user = {...this.props.user, ...user}
+        updateUser(this.props.user?.id as number, user).then(response => {
+            const {code, msg} = response.data
+            if (code === 0) {
+                message.success('更新成功！')
+                this.props.callback(false, user)
+            } else {
+                message.warn(msg)
+            }
+        })
     }
 
     render() {

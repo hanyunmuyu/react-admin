@@ -118,7 +118,7 @@ class UserList extends Component<any, IState> {
                                     path={'editUser'}
                                     children={<Button type='primary' onClick={() => {
                                         this.show(true, user)
-                                    }}>编辑用户</Button>}/>
+                                    }}>编辑</Button>}/>
                                 <Permission
                                     path={'deleteUser'}
                                     children={<DeleteUser userId={user.id} callback={this.deleteUser}/>}/>

@@ -13,3 +13,11 @@ export const deleteUser = (userId: number) => {
         method: 'delete'
     })
 }
+
+export const updateUser = (userId: number, data: any) => {
+    return request({
+        url: '/admin/user/' + userId,
+        method: 'put',
+        data: data
+    })
+}
