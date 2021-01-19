@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import {getUserList} from "../../api/user";
-import {Space, Table} from "antd";
+import {Button, Space, Table} from "antd";
 import Permission from '../../components/Permission'
 import DeleteUser from "./DeleteUser";
+import EditUser from "./EditUser";
 
 interface IUser {
     id: number
@@ -18,10 +19,11 @@ interface IState {
     page: number
     perPage: number
     totalCount: number
+    visible: boolean
+    user?: IUser
 }
 
 class UserList extends Component<any, IState> {
-
     constructor(props: any, context: any) {
         super(props, context);
         this.state = {
@@ -29,7 +31,8 @@ class UserList extends Component<any, IState> {
             page: 1,
             perPage: 15,
             totalCount: 0,
-            pageSize: 0
+            pageSize: 0,
+            visible: false
         }
     }
 
@@ -57,10 +60,27 @@ class UserList extends Component<any, IState> {
             userList: state.userList.filter(user => user.id !== userId)
         }))
     }
+    editUser = (user: IUser) => {
+
+    }
+    show = (visible: boolean, user?: IUser) => {
+        this.setState((state) => ({
+            visible: visible,
+            user: user,
+            userList: state.userList.map((u, _) => {
+                if (u.id === user?.id) {
+                    return user
+                } else {
+                    return u
+                }
+            })
+        }))
+    }
 
     render() {
         return (
             <>
+                <EditUser visible={this.state.visible} user={this.state.user} callback={this.show}/>
                 <Table
                     pagination={{
                         position: ['bottomCenter'],
@@ -81,6 +101,9 @@ class UserList extends Component<any, IState> {
                         title={'姓名'}
                         dataIndex={'name'}/>
                     <Table.Column
+                        title={'电话'}
+                        dataIndex={'mobile'}/>
+                    <Table.Column
                         title={'头像'}
                         dataIndex={'avatar'}/>
                     <Table.Column
@@ -91,6 +114,11 @@ class UserList extends Component<any, IState> {
                         render={(user: IUser) => (
                             <Space>
 
+                                <Permission
+                                    path={'editUser'}
+                                    children={<Button type='primary' onClick={() => {
+                                        this.show(true, user)
+                                    }}>编辑用户</Button>}/>
                                 <Permission
                                     path={'deleteUser'}
                                     children={<DeleteUser userId={user.id} callback={this.deleteUser}/>}/>
