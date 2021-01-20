@@ -8,6 +8,7 @@ import RoleList from '../pages/RoleList/RoleList'
 import {DashboardOutlined, DashboardTwoTone, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import {IRoute} from "../store/states/PermissionState";
 import UserList from "../pages/User/UserList"
+import Config from "../pages/Config";
 
 export const leftRoute: IRoute[] = [
     {
@@ -71,9 +72,7 @@ export const leftRoute: IRoute[] = [
         ]
     }
 ]
-export const topRoute: IRoute[] = [
-
-]
+export const topRoute: IRoute[] = []
 
 export const authRoutes: IRoute[] = [
     ...leftRoute,
@@ -86,6 +85,13 @@ export const unAuthRouters: IRoute[] = [
         title: '登录',
         isMenu: 1,
         component: <Login/>
+    },
+    {
+        id: '777777777-0',
+        path: '/config',
+        title: '404',
+        isMenu: 0,
+        component: <Config/>
     },
     {
         id: '55555555555555555-0',

@@ -8,6 +8,7 @@ import {RouteComponentProps, withRouter} from "react-router";
 import {getPermissionList} from '../store/actions/PermissionAction';
 import {set} from "../utils/storage";
 import '../static/css/login/login.css'
+import {check} from "../api/config";
 
 const layout = {
     labelCol: {span: 4},
@@ -43,9 +44,17 @@ class Login extends Component<IProps, IState> {
             password: ''
         }
         window.addEventListener('resize', this.handleResize.bind(this)) //监听窗口大小改变
-
+        this.check()
     }
 
+    check = () => {
+        check().then(response => {
+            const {code} = response.data
+            if (code == 1) {
+                this.props.history.push('/config')
+            }
+        })
+    }
     handleResize = () => {
         let height = window.document.body.clientHeight
         let width = window.document.body.clientWidth

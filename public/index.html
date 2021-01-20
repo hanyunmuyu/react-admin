@@ -45,5 +45,11 @@
     if (env === 'production') {
       document.write("<script src='%PUBLIC_URL%/mouse.js'><\/script>");
     }
+    function init(values){
+      // @ts-ignore
+      const {ipcRenderer} = require('electron')
+      // // send username to main.js
+      ipcRenderer.send('asynchronous-message', values)
+    }
   </script>
 </html>
