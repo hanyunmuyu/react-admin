@@ -1,9 +1,10 @@
-import React, {Component} from "react";
+import React, {Component, RefObject} from "react";
 import {Button, Form, Input, message, Modal, Select, Space} from "antd";
 import {IAdmin} from "../../store/states/AdminState";
 import {updateAdmin} from "../../api/admin";
 import {IRole} from "../interfaces/IRole";
 import {getAllRole} from "../../api/role";
+import {FormInstance} from "antd/lib/form";
 
 const layout = {
     labelCol: {span: 4},
@@ -14,8 +15,9 @@ const tailLayout = {
 };
 
 interface IEditAdminProps {
-    admin: IAdmin
-    callback: (admin: IAdmin) => void
+    admin?: IAdmin
+    visible: boolean
+    callback: (admin?: IAdmin) => void
 }
 
 interface IEditAdminState {
@@ -23,8 +25,14 @@ interface IEditAdminState {
 }
 
 class EditAdmin extends Component<IEditAdminProps, IEditAdminState> {
-    state: IEditAdminState = {
-        roleList: []
+    formRef: RefObject<FormInstance>
+
+    constructor(props: IEditAdminProps, context: any) {
+        super(props, context);
+        this.state = {
+            roleList: []
+        }
+        this.formRef = React.createRef<FormInstance>()
     }
 
     getAllRole() {
@@ -66,29 +74,32 @@ class EditAdmin extends Component<IEditAdminProps, IEditAdminState> {
     }
 
     render() {
+        this.formRef.current?.setFieldsValue({
+            ...this.props.admin
+        })
         return (
             <>
                 <Modal
                     title="编辑管理员信息"
-                    visible
+                    visible={this.props.visible}
                     onCancel={this.handleCancel}
                     cancelText='取消'
                     okText='确认'
                     footer={null}
                 >
                     <Form
+                        ref={this.formRef}
                         {...layout}
                         name="basic"
                         initialValues={{
-                            name: this.props.admin.name,
-                            password: '',
-                            roleId: this.props.admin.roleId
+                            ...this.props.admin
                         }}
                         onFinish={this.saveAdmin}
                     >
                         <Form.Item
                             label="名称"
                             name="name"
+                            shouldUpdate={(prevValues, curValues) => prevValues.additional !== curValues.additional}
                             rules={[{required: true, message: '请输入管理员名称'}]}
                         >
                             <Input/>
@@ -97,6 +108,7 @@ class EditAdmin extends Component<IEditAdminProps, IEditAdminState> {
                         <Form.Item
                             label="密码"
                             name="password"
+                            shouldUpdate={(prevValues, curValues) => prevValues.additional !== curValues.additional}
                             rules={[{
                                 validator: (rules, value: string) => {
                                     if (value === '') {

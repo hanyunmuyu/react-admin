@@ -2,14 +2,13 @@ import React, {Component} from 'react'
 import {Button, Space, Table} from 'antd'
 import {getAdminList} from '../../api/admin'
 import Permission from '../../components/Permission'
-import {getAllRole} from '../../api/role'
 import DeleteAdmin from "./DeleteAdmin";
 import {IAdmin} from "../../store/states/AdminState";
 import {IRole} from "../interfaces/IRole";
 import EditAdmin from './EditAdmin'
 
 
-interface IAdminListState {
+interface IState {
     adminList: IAdmin[]
     roleList: IRole[]
     pageSize: number
@@ -21,29 +20,22 @@ interface IAdminListState {
 }
 
 
-class AdminList extends Component<any, IAdminListState> {
-    state: IAdminListState = {
-        adminList: [],
-        roleList: [],
-        page: 1,
-        perPage: 15,
-        totalCount: 0,
-        pageSize: 0,
-        visible: false
-    }
-
+class AdminList extends Component<any, IState> {
     constructor(props: any) {
         super(props);
-        this.getAdminList()
+        this.state = {
+            adminList: [],
+            roleList: [],
+            page: 1,
+            perPage: 15,
+            totalCount: 0,
+            pageSize: 0,
+            visible: false
+        }
     }
 
-    getAllRole() {
-        getAllRole().then(response => {
-            const {data} = response.data
-            this.setState({
-                roleList: data
-            })
-        })
+    componentDidMount() {
+        this.getAdminList()
     }
 
     deleteAdminCallback = (admin: IAdmin) => {
@@ -52,12 +44,10 @@ class AdminList extends Component<any, IAdminListState> {
         })
     }
     editAdmin = (admin: IAdmin) => {
-        this.getAllRole()
+        admin.password = ''
         this.setState({
+            visible: true,
             admin: admin
-        })
-        this.setState({
-            visible: true
         })
     }
     getAdminList = (page: number = 1) => {
@@ -74,11 +64,11 @@ class AdminList extends Component<any, IAdminListState> {
     onChange = (page: number) => {
         this.getAdminList(page)
     }
-    editAdminCallback = (admin: IAdmin) => {
+    editAdminCallback = (admin?: IAdmin) => {
         this.setState({
             visible: false,
             adminList: this.state.adminList.map((a) => {
-                if (a.id === admin.id) {
+                if (a.id === admin?.id) {
                     return admin
                 }
                 return a
@@ -89,13 +79,7 @@ class AdminList extends Component<any, IAdminListState> {
     render() {
         return (
             <div>
-                {
-                    this.state.visible && this.state.admin ?
-                        <EditAdmin admin={this.state.admin} callback={this.editAdminCallback}/>
-                        :
-                        ''
-                }
-
+                <EditAdmin visible={this.state.visible} admin={this.state.admin} callback={this.editAdminCallback}/>
                 <Table
                     pagination={{
                         position: ['bottomCenter'],
