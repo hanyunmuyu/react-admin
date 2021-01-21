@@ -50,7 +50,7 @@ class Login extends Component<IProps, IState> {
     check = () => {
         check().then(response => {
             const {code} = response.data
-            if (code == 1) {
+            if (code === 1) {
                 this.props.history.push('/config')
             }
         })
