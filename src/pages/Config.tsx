@@ -3,7 +3,7 @@ import {Button, Form, Input, message, Progress} from "antd";
 import {config} from "../api/config";
 
 const layout = {
-    labelCol: {span: 4},
+    labelCol: {span: 6},
     wrapperCol: {span: 16},
 };
 const tailLayout = {
@@ -72,16 +72,15 @@ export default class Config extends Component<any, IState> {
                         </div>
                         :
                         <Form
-                            id='login-form'
-                            className='login-form'
                             ref={null}
                             initialValues={{
                                 host: 'localhost',
                                 name: 'root',
                                 port: 3306,
-                                db: 'admin',
+                                db: '',
                                 password: ''
                             }}
+                            style={{margin: '0 auto', marginTop: '100px', width: '500px', borderRadius: '16px'}}
                             onFinish={this.onFinish}
                             {...layout}
                         >
@@ -92,6 +91,18 @@ export default class Config extends Component<any, IState> {
                                     {
                                         required: true,
                                         message: '数据库地址不可以为空'
+                                    }
+                                ]}
+                            >
+                                <Input/>
+                            </Form.Item>
+                            <Form.Item
+                                label="数据库"
+                                name="db"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '数据库不可以为空'
                                     }
                                 ]}
                             >
