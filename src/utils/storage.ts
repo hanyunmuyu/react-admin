@@ -7,3 +7,6 @@ export const get = (key: string): string | null => {
 export const set = (key: string, val: string) => {
     return localStorage.setItem(key, val)
 }
+export const clear = () => {
+    return localStorage.clear()
+}

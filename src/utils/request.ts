@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {message, Modal} from 'antd';
 import NProgress from 'nprogress'
-import {get} from "./storage";
+import {clear, get} from "./storage";
 // create an axios instance
 const service = axios.create({
     baseURL: process.env.REACT_APP_BASE_API, // url = base url + request url
@@ -31,6 +31,11 @@ service.interceptors.response.use(
             if (code === 4003) {
                 message.warning('你的登录状态已经丢失，请退出后重新登录！')
                 return Promise.reject('请登录')
+            } else if (code === 4000) {
+                message.warning('认证失败，请退出后重新登录！')
+                clear()
+                window.location.href = '/login'
+                return Promise.reject('认证失败')
             }
             return response;
         } else {
