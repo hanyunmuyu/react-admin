@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Card, Col, Row, Statistic, Tabs, DatePicker, Divider, Table} from 'antd'
+import {Button, Card, Col, Row, Statistic, Tabs, DatePicker, Table} from 'antd'
 import Permission from '../components/Permission'
 import Echarts from "../components/Echarts";
 
