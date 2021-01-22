@@ -6,10 +6,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import store from "./store";
+import {ConfigProvider} from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+
+moment.locale('cn');
 
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+        <ConfigProvider locale={zhCN}>
+            <App/>
+        </ConfigProvider>
     </Provider>,
     document.getElementById('root')
 );
