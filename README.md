@@ -58,8 +58,8 @@
     6. [综合案例](./md/4/综合案例.md)
 
 5. RBAC权限管理
-    1. RBAC介绍
-    2. RBAC实现原理
+    1. [RBAC介绍](./md/5/rbac介绍.md)
+    2. [React与RBAC](./md/5/React与RBAC.md)
     3. 权限如何划分
     4. 前后端分类RBAC实现思路
 
