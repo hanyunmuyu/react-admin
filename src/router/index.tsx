@@ -7,12 +7,10 @@ import {IRoute} from "../store/states/PermissionState";
 import Config from "../pages/Config";
 
 const UserList = lazy(() => import("../pages/User/UserList"))
-
 const RoleList = lazy(() => import( '../pages/RoleList/RoleList'))
-
 const AdminList = lazy(() => import("../pages/AdminList/AdminList"))
-
 const Index = lazy(() => import("../pages/Index"))
+const Activity = lazy(() => import('../pages/Activity/ActivityList'))
 
 export const leftRoute: IRoute[] = [
     {
@@ -72,6 +70,23 @@ export const leftRoute: IRoute[] = [
                 title: '用户列表',
                 isMenu: 0,
                 component: <UserList/>
+            }
+        ]
+    },
+    {
+        id: '6-0',
+        icon: <TeamOutlined/>,
+        path: '',
+        title: '活动管理',
+        isMenu: 1,
+        routes: [
+            {
+                id: '6-1',
+                icon: <DashboardTwoTone/>,
+                path: '/admin/activity/list',
+                title: '活动列表',
+                isMenu: 0,
+                component: <Activity/>
             }
         ]
     }
