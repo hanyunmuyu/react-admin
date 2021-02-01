@@ -1,5 +1,5 @@
 import React, {Component, Suspense} from 'react'
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
+import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 import {authRoutes, unAuthRouters} from '../router'
 import AdminLayout from './AdminLayout'
 

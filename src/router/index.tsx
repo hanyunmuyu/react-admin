@@ -4,8 +4,7 @@ import Page404 from "../pages/Page404"
 import Page403 from "../pages/Page403"
 import {DashboardOutlined, DashboardTwoTone, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import {IRoute} from "../store/states/PermissionState";
-
-const Config = lazy(() => import("../pages/Config"))
+import Config from "../pages/Config";
 
 const UserList = lazy(() => import("../pages/User/UserList"))
 
