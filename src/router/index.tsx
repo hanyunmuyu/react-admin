@@ -1,14 +1,19 @@
-import React from "react"
-import AdminList from "../pages/AdminList/AdminList"
-import Index from "../pages/Index"
+import React, {lazy} from "react"
 import Login from "../pages/Login"
 import Page404 from "../pages/Page404"
 import Page403 from "../pages/Page403"
-import RoleList from '../pages/RoleList/RoleList'
 import {DashboardOutlined, DashboardTwoTone, TeamOutlined, UserOutlined} from '@ant-design/icons';
 import {IRoute} from "../store/states/PermissionState";
-import UserList from "../pages/User/UserList"
-import Config from "../pages/Config";
+
+const Config = lazy(() => import("../pages/Config"))
+
+const UserList = lazy(() => import("../pages/User/UserList"))
+
+const RoleList = lazy(() => import( '../pages/RoleList/RoleList'))
+
+const AdminList = lazy(() => import("../pages/AdminList/AdminList"))
+
+const Index = lazy(() => import("../pages/Index"))
 
 export const leftRoute: IRoute[] = [
     {
