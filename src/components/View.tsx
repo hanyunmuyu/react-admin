@@ -6,7 +6,7 @@ import AdminLayout from './AdminLayout'
 class View extends Component {
     render() {
         return (
-            <div>
+            <>
                 <Router>
                     <Switch>
                         <Route path={'/'} exact>
@@ -58,7 +58,7 @@ class View extends Component {
                         }
                     </Switch>
                 </Router>
-            </div>
+            </>
         )
     }
 }
