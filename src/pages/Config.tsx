@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Button, Form, Input, message, Progress} from "antd";
 import {config} from "../api/config";
+import {withRouter} from "react-router";
 
 const layout = {
     labelCol: {span: 6},
@@ -15,7 +16,7 @@ interface IState {
     loading: boolean
 }
 
-export default class Config extends Component<any, IState> {
+class Config extends Component<any, IState> {
     timer: any
 
     constructor(props: any, context: any) {
@@ -43,7 +44,7 @@ export default class Config extends Component<any, IState> {
                     progress: 100
                 }))
                 message.success('安装成功')
-                window.location.href = '/login'
+                this.props.history.push('/login')
             } else {
                 setTimeout(() => {
                     message.error('配置错误！请修改后重试')
@@ -152,3 +153,5 @@ export default class Config extends Component<any, IState> {
     }
 
 }
+
+export default withRouter(Config)
