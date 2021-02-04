@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Button, Space, Table} from 'antd';
 import {getRoleList} from "../../api/role";
-import Permission from "./Permission";
+import EditRole from "./EditRole";
 import {default as PermissionCheck} from '../../components/Permission'
 import {IRole} from "../interfaces/IRole";
 import DeleteRole from "./DeleteRole";
@@ -70,7 +70,7 @@ class RoleList extends Component<any, IState> {
             <>
                 {
                     this.state.showP && this.state.role ?
-                        <Permission
+                        <EditRole
                             roleId={this.state.role.id}
                             roleName={this.state.role.roleName}
                             callback={this.editRoleCallback}/> : ''

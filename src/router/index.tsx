@@ -7,7 +7,7 @@ import {IRoute} from "../store/states/PermissionState";
 import Config from "../pages/Config";
 
 const UserList = lazy(() => import("../pages/User/UserList"))
-const RoleList = lazy(() => import( '../pages/RoleList/RoleList'))
+const RoleList = lazy(() => import( '../pages/Role/RoleList'))
 const AdminList = lazy(() => import("../pages/AdminList/AdminList"))
 const Index = lazy(() => import("../pages/Index"))
 const Activity = lazy(() => import('../pages/Activity/ActivityList'))

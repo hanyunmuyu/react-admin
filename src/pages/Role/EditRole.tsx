@@ -33,7 +33,7 @@ interface IProps {
     callback: (roleName?: string) => void
 }
 
-class Permission extends Component<IProps, IPermissionState> {
+class EditRole extends Component<IProps, IPermissionState> {
     state = {
         nodeList: [],
         defaultCheckedKeys: [],
@@ -182,4 +182,4 @@ class Permission extends Component<IProps, IPermissionState> {
     }
 }
 
-export default Permission
+export default EditRole
