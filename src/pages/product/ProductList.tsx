@@ -1,20 +1,23 @@
 import React, {Component} from "react";
 import {getProductList} from "../../api/product";
 import {Button, Space, Table} from "antd";
+import EditProduct from "./EditProduct";
 
 interface IProduct {
     id: number
     name: string
+    description: string
 }
 
 interface IState {
     productList: IProduct[]
 
-
+    product?: IProduct
     pageSize: number
     page: number
     perPage: number
     totalCount: number
+    visible: boolean
 }
 
 export default class ProductList extends Component<any, IState> {
@@ -24,6 +27,7 @@ export default class ProductList extends Component<any, IState> {
         this.state = {
             productList: [],
             page: 1,
+            visible: false,
             perPage: 15,
             totalCount: 0,
             pageSize: 0,
@@ -50,10 +54,30 @@ export default class ProductList extends Component<any, IState> {
     onChange = (page: number) => {
         this.getProductList(page)
     }
+    editProduct = (visible: boolean, product?: IProduct) => {
+        if (visible) {
+            this.setState({
+                visible: visible,
+                product: product
+            });
+        } else {
+            this.setState((state) => ({
+                visible: visible,
+                productList: state.productList.map((p, _) => {
+                    if (p.id === product?.id) {
+                        return product
+                    }
+                    return p;
+                }),
+                product: product
+            }))
+        }
+    }
 
     render() {
         return (
             <>
+                <EditProduct product={this.state.product} visible={this.state.visible} callback={this.editProduct}/>
                 <Table
                     pagination={{
                         position: ['bottomCenter'],
@@ -74,10 +98,15 @@ export default class ProductList extends Component<any, IState> {
                         title='产品名称'
                         dataIndex={'name'}/>
                     <Table.Column
+                        title='描述'
+                        dataIndex={'description'}/>
+                    <Table.Column
                         title='管理'
                         render={(product: IProduct) => (
                             <Space>
-                                <Button type='primary'>编辑</Button>
+                                <Button type='primary' onClick={() => {
+                                    this.editProduct(true, product)
+                                }}>编辑</Button>
                                 <Button type='primary' danger>删除</Button>
                             </Space>
                         )}
