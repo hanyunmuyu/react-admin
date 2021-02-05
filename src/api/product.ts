@@ -8,3 +8,9 @@ export const getProductList = (page: number = 1) => {
         }
     })
 }
+export const deleteProduct = (productId: number) => {
+    return request({
+        url: '/admin/product/' + productId,
+        method: 'delete'
+    })
+}

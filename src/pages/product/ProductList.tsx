@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {getProductList} from "../../api/product";
 import {Button, Space, Table} from "antd";
 import EditProduct from "./EditProduct";
+import DeleteProduct from "./DeleteProduct";
 
 interface IProduct {
     id: number
@@ -73,6 +74,11 @@ export default class ProductList extends Component<any, IState> {
             }))
         }
     }
+    deleteProduct = (productId: number) => {
+        this.setState((state) => ({
+            productList: state.productList.filter(p => p.id !== productId)
+        }))
+    }
 
     render() {
         return (
@@ -107,7 +113,7 @@ export default class ProductList extends Component<any, IState> {
                                 <Button type='primary' onClick={() => {
                                     this.editProduct(true, product)
                                 }}>编辑</Button>
-                                <Button type='primary' danger>删除</Button>
+                                <DeleteProduct id={product.id} callback={this.deleteProduct}/>
                             </Space>
                         )}
                     />
