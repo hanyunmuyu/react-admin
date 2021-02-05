@@ -14,3 +14,14 @@ export const deleteProduct = (productId: number) => {
         method: 'delete'
     })
 }
+
+export const updateProduct = (productId: number, data: any) => {
+    return request({
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        url: '/admin/product/' + productId,
+        method: 'put',
+        data: data
+    })
+}

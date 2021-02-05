@@ -1,6 +1,7 @@
 import React, {Component, RefObject} from "react";
-import {Button, Form, Input, Modal, Space} from "antd";
+import {Button, Form, Input, message, Modal, Space} from "antd";
 import {FormInstance} from "antd/lib/form";
+import {updateProduct} from "../../api/product";
 
 const tailLayout = {
     wrapperCol: {offset: 8, span: 16},
@@ -32,7 +33,22 @@ export default class EditProduct extends Component<IProps, any> {
     }
     updateProduct = (product: IProduct) => {
         product = {...this.props.product, ...product}
-        this.props.callback(false, product)
+        if (product) {
+            // @ts-ignore
+            updateProduct(this.props.product.id, product).then(response => {
+                const {code, msg} = response.data
+                if (code === 0) {
+                    message.success('更新成功！')
+                    this.props.callback(false, product)
+
+                } else {
+                    message.warn(msg)
+                    this.props.callback(false)
+                }
+            })
+        } else {
+            this.props.callback(false)
+        }
     }
 
     render() {
@@ -57,11 +73,15 @@ export default class EditProduct extends Component<IProps, any> {
                     >
                         <Form.Item
                             name='name'
+                            label='名称'
+                            rules={[{required: true, message: '名称不可以为空'}]}
                         >
                             <Input/>
                         </Form.Item>
                         <Form.Item
+                            label='描述'
                             name='description'
+                            rules={[{required: true, message: '描述不可以为空'}]}
                         >
                             <Input/>
                         </Form.Item>
