@@ -60,21 +60,12 @@
 
 5. RBAC权限管理
     1. [RBAC介绍](./md/5/rbac介绍.md)
-    2. [React与RBAC](./md/5/React与RBAC.md)
-    3. 权限如何划分
-    4. 前后端分类RBAC实现思路
-
+    2. [权限设计](md/5/权限设计.md)
+    
 6. 核心实现
     1. [整体布局介绍](./md/6/整体布局介绍.md)
-    2. [权限设计](./md/6/权限设计.md)
-    3. redux管理权限
-        1. store存储权限
-        2. redux-thunk为react与权限牵线搭桥
-    4. react-router-dom渲染权限
-        1. NavLink展示左侧菜单
-        2. Route与Switch渲染权限
-        3. matchPath判断权限
-    5. 自定义组件
+    3. [redux存储权限.md](./md/6/redux存储权限.md)
+    2. 自定义组件
         1. 公共布局渲染内容
         2. 左侧菜单
         3. 页面内权限管理
