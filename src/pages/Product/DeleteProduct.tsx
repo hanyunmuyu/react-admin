@@ -19,7 +19,7 @@ export default class DeleteProduct extends Component<IProps, IState> {
         }
     }
 
-    deleteUser = () => {
+    deleteProduct = () => {
         this.setState({
             visibleDelete: true
         })
@@ -49,15 +49,16 @@ export default class DeleteProduct extends Component<IProps, IState> {
     render() {
         return (
             <>
-                <Popconfirm title='你确定要删除用户吗？删除后不可以恢复！'
-                            visible={this.state.visibleDelete}
-                            okText="删除"
-                            placement="topRight"
-                            onConfirm={this.confirm}
-                            onCancel={this.cancel}
-                            cancelText="取消"
+                <Popconfirm
+                    title='你确定要删除用户吗？删除后不可以恢复！'
+                    visible={this.state.visibleDelete}
+                    okText="删除"
+                    placement="topRight"
+                    onConfirm={this.confirm}
+                    onCancel={this.cancel}
+                    cancelText="取消"
                 >
-                    <Button type='primary' danger onClick={this.deleteUser}>删除</Button>
+                    <Button type='primary' danger onClick={this.deleteProduct}>删除</Button>
                 </Popconfirm>
             </>
         )

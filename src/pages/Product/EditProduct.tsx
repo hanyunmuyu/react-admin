@@ -11,7 +11,6 @@ interface IProduct {
     id: number
     name: string
     description: string
-
 }
 
 interface IProps {
