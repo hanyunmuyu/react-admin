@@ -11,7 +11,7 @@ const RoleList = lazy(() => import( '../pages/Role/RoleList'))
 const AdminList = lazy(() => import("../pages/AdminList/AdminList"))
 const Index = lazy(() => import("../pages/Index"))
 const Activity = lazy(() => import('../pages/Activity/ActivityList'))
-const ProductList = lazy(() => import('../pages/product/ProductList'))
+const ProductList = lazy(() => import('../pages/Product/ProductList'))
 export const leftRoute: IRoute[] = [
     {
         id: '1-1',
