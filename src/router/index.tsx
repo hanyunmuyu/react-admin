@@ -11,7 +11,7 @@ const RoleList = lazy(() => import( '../pages/Role/RoleList'))
 const AdminList = lazy(() => import("../pages/AdminList/AdminList"))
 const Index = lazy(() => import("../pages/Index"))
 const Activity = lazy(() => import('../pages/Activity/ActivityList'))
-
+const ProductList = lazy(() => import('../pages/product/ProductList'))
 export const leftRoute: IRoute[] = [
     {
         id: '1-1',
@@ -87,6 +87,23 @@ export const leftRoute: IRoute[] = [
                 title: '活动列表',
                 isMenu: 0,
                 component: <Activity/>
+            }
+        ]
+    },
+    {
+        id: '7-0',
+        icon: <TeamOutlined/>,
+        path: '',
+        title: '产品管理',
+        isMenu: 1,
+        routes: [
+            {
+                id: '7-1',
+                icon: <DashboardTwoTone/>,
+                path: '/admin/product/list',
+                title: '产品列表',
+                isMenu: 0,
+                component: <ProductList/>
             }
         ]
     }
